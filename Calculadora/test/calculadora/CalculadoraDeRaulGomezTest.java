@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
+
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CalculadoraDeRaulGomezTest {
@@ -48,7 +52,25 @@ class CalculadoraDeRaulGomezTest {
 	@Order(4)
 	@Test
 	void testDivide() {
-		assertEquals(2, calcu.divide(20, 3), "DIVISION rG");
+		assertEquals(2, calcu.divide(20, 10), "DIVISION rG");
+	}
+	@Test
+	void exceptionTesting() {
+		Throwable exception = 
+				assertThrows(ArithmeticException.class,() -> calcu.divide(20,0) );
+			assertEquals("/ by cero",
+					exception.getMessage());	
+	}
+//	Modifica el código para que una operación se alargue en el tiempo e intenta controlarlo con métodos de prueba como assertTimeout()
+	
+	@Test
+	void tiempoTestNoExcede1s() {
+		assertTimeout(ofSeconds(5), () -> calcu.divide(200031,123));
+		
+	}
+	@Test
+	void tiempoTestNoExcedeConResultado() {
+		String actualResult
 	}
 
 //	@Test

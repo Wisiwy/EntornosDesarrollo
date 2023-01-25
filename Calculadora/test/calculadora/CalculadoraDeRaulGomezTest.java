@@ -73,18 +73,20 @@ class CalculadoraDeRaulGomezTest {
 
 	}
 
-//	@Test
-//	void tiempoTestNoExcedeConResultado() {
-//		Integer actualResult = assertTimeout(ofSeconds(1), () -> {
-//			return 
-//		});
-//
-//	}
+	@Test
+	void tiempoTestNoExcedeConResultado() {
+		Integer actualResult = assertTimeout(ofSeconds(2), () -> {
+	    	Thread.sleep(3000);
+			return calcu.divide(20, 2);
+		});
+
+	}
 	
 	@Test
 	void timeoutNotExceededWithResult() {
 	    Integer actualResult = assertTimeoutPreemptively(ofSeconds(1), () -> {
-	        return calcu.divide(23, 0);
+	    	Thread.sleep(3000);
+	        return calcu.divide(22, 2);
 	    });
 	    assertEquals(2, calcu.divide(23, 0));
 	}
